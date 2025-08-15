@@ -25,4 +25,4 @@ class Menu(models.Model):
         unique_together = ("title", "price")  # menu_item and price combination
 
     def __str__(self):
-        return self.title
+        return f"{self.title} : {str(self.price)}"
