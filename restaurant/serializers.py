@@ -18,9 +18,12 @@ class MenuSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate(self, data):
-        if data["price"] < 1:
+        price = data.get("price")
+        if price is not None and price < 1:
             raise serializers.ValidationError("Price should be at least 1.00")
-        if data["inventory"] < 0:
+
+        inventory = data.get("inventory")
+        if inventory is not None and inventory < 0:
             raise serializers.ValidationError(
                 "Inventory should be greater than or equal to 0"
             )
@@ -33,8 +36,10 @@ class BookingSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate(self, data):
-        if data["no_of_guests"] < 1:
+        no_of_guests = data.get("no_of_guests")
+        if no_of_guests is not None and no_of_guests < 1:
             raise serializers.ValidationError("Guests should be at least one")
-        if data["booking_date"] < datetime.now(timezone.utc):
+        booking_date = data["booking_date"]
+        if booking_date is not None and booking_date < datetime.now(timezone.utc):
             raise serializers.ValidationError("New booking can't be made in the past")
         return data
