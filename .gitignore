@@ -1,0 +1,7 @@
+.venv
+.env
+.vscode
+pushcommands.txt
+__pycache__/
+*.py[cod]
+db.sqlite3
