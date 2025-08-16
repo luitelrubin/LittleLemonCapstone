@@ -8,7 +8,7 @@ api/auth/users/
 
 api-token-auth/
 
-api/auth/token/login
+api/auth/token/login<br>
 api/auth/token/logout
 
 ### Menu
