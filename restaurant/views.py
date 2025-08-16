@@ -1,12 +1,10 @@
-from django.shortcuts import get_object_or_404
+from datetime import datetime
+from django.shortcuts import get_object_or_404, render
+from django.core import serializers
 
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-# from rest_framework import status
 
 from .models import Menu, Booking
 from .serializers import MenuSerializer, BookingSerializer
@@ -28,6 +26,22 @@ class BookingViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
+def home(request):
+    return render(request, "index.html")
+
+
+def about(request):
+    return render(request, "about.html")
+
+
+def reservations(request):
+    date = request.GET.get("date", datetime.today().date())
+    bookings = Booking.objects.all()
+    booking_json = serializers.serialize("json", bookings)
+    return render(request, "bookings.html", {"bookings": booking_json})
+
+
+# Old implementation, please ignore
 """
 class BookingView(APIView):
     def get(self, request, pk=None):
