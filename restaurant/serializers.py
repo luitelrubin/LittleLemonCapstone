@@ -31,6 +31,9 @@ class MenuSerializer(serializers.ModelSerializer):
 
 
 class BookingSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(write_only=True)
+    model = serializers.CharField(write_only=True)
+
     class Meta:
         model = Booking
         fields = "__all__"
